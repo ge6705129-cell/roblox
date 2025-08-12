@@ -1,0 +1,109 @@
+-- 创建一个 ScreenGui 作为所有 UI 元素的容器
+local player = game:GetService("Players").LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "MyUI"
+screenGui.Parent = playerGui
+
+-- 创建一个 Frame 作为主容器
+local frame = Instance.new("Frame")
+frame.Name = "MainFrame"
+frame.Size = UDim2.new(0, 300, 0, 200)
+frame.Position = UDim2.new(0.5, -150, 0.5, -100)  -- 屏幕中央
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- 添加圆角效果
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 8)
+corner.Parent = frame
+
+-- 添加标题文本
+local title = Instance.new("TextLabel")
+title.Name = "Title"
+title.Text = "我的 UI 界面"
+title.Size = UDim2.new(1, 0, 0, 40)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 24
+title.Parent = frame
+
+-- 添加输入框
+local textBox = Instance.new("TextBox")
+textBox.Name = "InputBox"
+textBox.PlaceholderText = "在这里输入..."
+textBox.Size = UDim2.new(0.8, 0, 0, 30)
+textBox.Position = UDim2.new(0.1, 0, 0.3, 0)
+textBox.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textBox.ClearTextOnFocus = false
+textBox.Parent = frame
+
+-- 添加圆角效果
+local textBoxCorner = Instance.new("UICorner")
+textBoxCorner.CornerRadius = UDim.new(0, 4)
+textBoxCorner.Parent = textBox
+
+-- 添加按钮
+local button = Instance.new("TextButton")
+button.Name = "SubmitButton"
+button.Text = "提交"
+button.Size = UDim2.new(0.6, 0, 0, 40)
+button.Position = UDim2.new(0.2, 0, 0.6, 0)
+button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 18
+button.Parent = frame
+
+-- 添加圆角效果
+local buttonCorner = Instance.new("UICorner")
+buttonCorner.CornerRadius = UDim.new(0, 4)
+buttonCorner.Parent = button
+
+-- 添加按钮悬停效果
+button.MouseEnter:Connect(function()
+    button.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+end)
+
+button.MouseLeave:Connect(function()
+    button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+end)
+
+-- 添加按钮点击事件
+button.MouseButton1Click:Connect(function()
+    local inputText = textBox.Text
+    if inputText ~= "" then
+        print("用户输入: " .. inputText)
+        -- 可以在这里添加处理用户输入的代码
+    else
+        print("请输入一些内容!")
+    end
+end)
+
+-- 添加关闭按钮
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Text = "X"
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -30, 0, 0)
+closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.Font = Enum.Font.SourceSansBold
+closeButton.TextSize = 18
+closeButton.Parent = frame
+
+-- 添加圆角效果
+local closeButtonCorner = Instance.new("UICorner")
+closeButtonCorner.CornerRadius = UDim.new(0, 4)
+closeButtonCorner.Parent = closeButton
+
+-- 关闭按钮点击事件
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()  -- 移除整个UI
+end)
